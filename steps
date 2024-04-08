@@ -1,0 +1,3 @@
+- Create docker compose
+- add sql go-migration - "migrate create -ext sql -dir db/migrations -seq create_users_table"
+- Add your migration to the file created
