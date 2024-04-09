@@ -1,0 +1,10 @@
+ALTER TABLE users ALTER COLUMN ID DROP DEFAULT;
+
+
+DROP SEQUENCE IF EXISTS users_ID_seq;
+
+-- Example: Changing the column back to INTEGER
+ALTER TABLE users ALTER COLUMN ID TYPE integer USING ID::integer;
+
+ALTER TABLE users ALTER COLUMN ID DROP NOT NULL;
+

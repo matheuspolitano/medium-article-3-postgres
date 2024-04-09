@@ -10,3 +10,11 @@ INSERT INTO users(
     $1, $2
 )
 RETURNING *;
+
+-- name: UpdateRole :exec
+UPDATE users SET role = $2
+WHERE id = $1;
+
+-- name: DeleteItem :exec
+DELETE FROM users
+WHERE ID = $1;

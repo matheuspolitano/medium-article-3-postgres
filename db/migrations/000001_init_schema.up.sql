@@ -1,22 +1,22 @@
 CREATE TABLE "follows" (
-  "following_user_id" integer,
-  "followed_user_id" integer,
+  "following_user_id" integer NOT NULL ,
+  "followed_user_id" integer NOT NULL ,
   "created_at" timestamp NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE "users" (
   "id" integer PRIMARY KEY,
-  "username" varchar,
-  "role" varchar,
+  "username" varchar NOT NULL ,
+  "role" varchar NOT NULL ,
   "created_at" timestamp NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE "posts" (
   "id" integer PRIMARY KEY,
-  "title" varchar,
-  "body" text,
-  "user_id" integer,
-  "status" varchar,
+  "title" varchar NOT NULL ,
+  "body" text NOT NULL ,
+  "user_id" integer NOT NULL ,
+  "status" varchar NOT NULL ,
   "created_at" timestamp NOT NULL DEFAULT NOW()
 );
 

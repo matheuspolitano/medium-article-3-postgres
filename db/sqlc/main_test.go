@@ -6,18 +6,18 @@ import (
 	"os"
 	"testing"
 
-	_ "github.com/jpfuentes2/go-env/autoload"
 	_ "github.com/lib/pq"
 )
 
 const (
-	dbDriver = "postgres"
+	dbDriver  = "postgres"
+	conString = "postgresql://root:MP@TEST123@localhost:5432/simple_table?sslmode=disable"
 )
 
 var testQueries *Queries
 
 func TestMain(m *testing.M) {
-	conn, err := sql.Open(dbDriver, os.Getenv("POSTGRES_URL"))
+	conn, err := sql.Open(dbDriver, conString)
 	if err != nil {
 		log.Fatal("cannot connet to db:", err)
 	}

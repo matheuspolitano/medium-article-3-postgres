@@ -7,15 +7,24 @@ package db
 
 import (
 	"context"
-	"database/sql"
 )
+
+const deleteItem = `-- name: DeleteItem :exec
+DELETE FROM users
+WHERE ID = $1
+`
+
+func (q *Queries) DeleteItem(ctx context.Context, id int64) error {
+	_, err := q.db.ExecContext(ctx, deleteItem, id)
+	return err
+}
 
 const getUser = `-- name: GetUser :one
 SELECT id, username, role, created_at FROM users
 WHERE id = $1
 `
 
-func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
+func (q *Queries) GetUser(ctx context.Context, id int64) (User, error) {
 	row := q.db.QueryRowContext(ctx, getUser, id)
 	var i User
 	err := row.Scan(
@@ -38,8 +47,8 @@ RETURNING id, username, role, created_at
 `
 
 type InsertUserParams struct {
-	Username sql.NullString
-	Role     sql.NullString
+	Username string
+	Role     string
 }
 
 func (q *Queries) InsertUser(ctx context.Context, arg InsertUserParams) (User, error) {
@@ -52,4 +61,19 @@ func (q *Queries) InsertUser(ctx context.Context, arg InsertUserParams) (User, e
 		&i.CreatedAt,
 	)
 	return i, err
+}
+
+const updateRole = `-- name: UpdateRole :exec
+UPDATE users SET role = $2
+WHERE id = $1
+`
+
+type UpdateRoleParams struct {
+	ID   int64
+	Role string
+}
+
+func (q *Queries) UpdateRole(ctx context.Context, arg UpdateRoleParams) error {
+	_, err := q.db.ExecContext(ctx, updateRole, arg.ID, arg.Role)
+	return err
 }

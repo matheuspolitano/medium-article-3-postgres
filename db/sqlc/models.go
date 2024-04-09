@@ -5,29 +5,28 @@
 package db
 
 import (
-	"database/sql"
 	"time"
 )
 
 type Follow struct {
-	FollowingUserID sql.NullInt32
-	FollowedUserID  sql.NullInt32
+	FollowingUserID int32
+	FollowedUserID  int32
 	CreatedAt       time.Time
 }
 
 type Post struct {
 	ID    int32
-	Title sql.NullString
+	Title string
 	// Content of the post
-	Body      sql.NullString
-	UserID    sql.NullInt32
-	Status    sql.NullString
+	Body      string
+	UserID    int32
+	Status    string
 	CreatedAt time.Time
 }
 
 type User struct {
-	ID        int32
-	Username  sql.NullString
-	Role      sql.NullString
+	ID        int64
+	Username  string
+	Role      string
 	CreatedAt time.Time
 }
